@@ -1,4 +1,6 @@
 # my-kanata-configs
+
+
 ## Naming scheme
 os.keyboard.lang1.lang2
 
