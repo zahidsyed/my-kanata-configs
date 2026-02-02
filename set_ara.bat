@@ -1,0 +1,2 @@
+@echo off
+powershell -NoProfile -Command "$type = Add-Type -MemberDefinition '[DllImport(\"user32.dll\")] public static extern bool PostMessage(int hWnd, uint Msg, int wParam, int lParam);' -Name 'Kbd' -PassThru; $type::PostMessage(0xFFFF, 0x0050, 0, 0x04010401)"

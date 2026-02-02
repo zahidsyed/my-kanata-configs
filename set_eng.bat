@@ -1,0 +1,2 @@
+@echo off
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$t=Add-Type -M '[DllImport(\"user32.dll\")]public static extern bool PostMessage(int h,uint m,int w,int l);' -Name 'K' -PassThru;$t::PostMessage(0xFFFF,0x0050,0,0x04090409)"
