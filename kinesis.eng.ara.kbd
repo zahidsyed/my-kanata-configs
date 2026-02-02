@@ -1,0 +1,221 @@
+
+;; Based on Corne layout philosophy:
+;; - Home row modifiers for ergonomic access to Cmd/Alt/Ctrl/Shift
+;; - Layer switching for numbers, symbols, navigation
+;; - Colemak Mod-DH for optimal typing
+;;
+
+(defcfg
+  danger-enable-cmd       yes
+  process-unmapped-keys   yes
+  concurrent-tap-hold     yes
+  allow-hardware-repeat   no
+  rapid-event-delay       5
+  sequence-timeout        2000
+  
+  ;;
+  ;; To see available devices, run: sudo kanata --list
+  ;; Then replace the device name in macos-dev-names-include
+)
+
+;; Source layer - full keyboard
+(defsrc
+  esc     f1   f2   f3   f4   f5   f6       f7   f8   f9   f10  f11  f12
+  grv     1    2    3    4    5    6        7    8    9    0    -    =    bspc
+  tab     q    w    e    r    t             y    u    i    o    p    [    ]     \
+  caps    a    s    d    f    g             h    j    k    l    ;    '    ret
+  lsft    z    x    c    v    b             n    m    ,    .    /    rsft
+  lctl    lmet lalt           spc                ralt rmet menu rctl
+)
+
+;; Base layer: Colemak Mod-DH with Home Row Mods
+;; Home row: A(Cmd) R(Alt) S(Ctrl) T(Shift) | M(Shift) N(Ctrl) E(Alt) I(Cmd)
+(deflayer base
+  esc     f1   f2   f3   f4   f5   f6       f7   f8   f9   f10  f11  f12
+  grv     1    2    3    4    5    6        \    7    8    9    0    =    bspc
+  tab     q    w    f    p    b             [    j    l    u    y    '    -     ;
+  @nav    @a   @r   @s   @t   g             ]    m    @n   @e   @i   @o   ret
+  lsft    x    c    d    v    z             /    k    h    ,    .    @fun
+  lctl    lmet lalt           @spc               ralt rmet menu rctl
+)
+
+;; Arabic Main Layer (Buckwalter phonetic)
+(deflayer arabic
+  _    _    _    _    _      _    _              _    _      _      _    _      _
+  _    1    2    3    4      5    6              \    7      8      9    0      _      bspc
+  _    r    S-q  t    n      f                   S-d  '      g      S-e  d      S-m    -     S-p
+  @ara-exit h v  s    j      y                   S-f  l      k      S-a  S-y    ,      ret
+  @asft-toggle a e ]  S-s    .                   S-l  ;      i      S-k  S-.    @asft-toggle
+  _    _    _                spc                      _      _      _    _
+)
+
+;; Arabic Shift Layer (Buckwalter shifted characters)
+(deflayer arabic-shift
+  _    _     _    _      _      _    _           _    _      _      _    _      _
+  _    S-1   S-2  S-3    S-4    S-5  S-6         \    S-7    S-8    S-9  S-0    S-=    bspc
+  _    _     S-w  S-x    _      _                S-v  _      _      S-r  z      '      S--   S-;
+  _    S-h   '    w      m      _                S-c  x      u      S-s  S-n    c      _
+  _    S-grv grv  q      _      /                S-/  o      p      S-[  S-] _
+  _    _     _           _                       _    _      _      _
+)
+
+
+;; Extended navigation layer (activated by Caps Lock) with home row mods
+(deflayer extend
+  _       @lq  @lh  @lm  _    _    _        _    _    _    _    _    _
+  _       @lq  @lh  @lm  _    _    _        _    _    _    _    _    _    _
+  tab     esc  @bk  @fnd @fw  ins  _        pgup home up   end  _    _    _
+  _       lalt lmet lsft lctl ralt _        pgdn lft  down rght del  caps
+  _       @cut @cpy tab  @pst @udo _        pgdn bspc lsft lctl _
+  _       _    _              ret                _    _    _    _
+)
+
+;; Unified Number + Symbol layer (space bar hold)
+(deflayer numsym
+  _       _    _    _    _    _    _        _    _    _    _    _    _
+  _       _    _    _    _    _    _        _    _    _    _    _    _    _
+  _       S-7  S-8  S-9  S-0  [    ]        _    7    8    9    _    _    _
+  _       S-4  S-5  S-6  `    \    /        _    4    5    6    0    _
+  _       S-1  S-2  S-3  -    S--  grv      _    1    2    3    _
+  _       _    _              _                  _    _    _    _
+)
+
+;; Function layer (right shift)
+(deflayer fun
+  _       _    _    _    _    _    _        _    _    _    _    _    _
+  _       f1   f2   f3   f4   f5   f6       f7   f8   f9   f10  f11  f12  _
+  _       _    _    _    _    _    _        _    _    _    _    _    _    _
+  _       _    _    _    _    _    _        _    _    _    _    _    _
+  _       _    _    _    _    _    _        _    _    _    _    _
+  _       _    _              _                  _    _    _    _
+)                                           
+
+
+
+;; One-shot modifier layer (alternative approach - uncomment to use)
+;; Access via a dedicated key if you struggle with tap-hold home row mods
+;; (deflayer oneshot
+;;   _       _    _    _    _    _    _    _    _    _    _    _    _
+;;   _       _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _       _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _       @oscmd @osalt @osctl @ossft _  _  @ossft @osctl @osalt @oscmd _  _  _
+;;   _       _    _    _    _    _    _    _    _    _    _    _
+;;   _       _    _              _              _    _    _    _
+;; )
+
+(defvar
+  tap-time 200           
+
+  hold-index  200            
+  hold-middle 230           
+  hold-ring   260          
+  hold-pinky  290         
+
+  left-hand-keys  ( q w f p b  a r s t g    x c d v z )
+  right-hand-keys ( [ j l u y  ] m n e i o  / k h , . )
+  
+  ara-left-keys (q w e r t a s d f g z x c v b)
+  ara-right-keys (y u i o p h j k l ; ' n m , .)
+)
+
+  
+;; Aliases for home row mods and layer keys
+
+(deflayer nomods
+  esc     f1   f2   f3   f4   f5   f6       f7   f8   f9   f10  f11  f12
+  grv     1    2    3    4    5    6        \    7    8    9    0    =    bspc
+  tab     q    w    f    p    b             [    j    l    u    y    '    -     ;
+  _       a    r    s    t   g             ]    m     n    e    i    o   ret
+  lsft    x    c    d    v    z             /    k    h    ,    .    _
+  lctl    lmet lalt           @spc               ralt rmet menu rctl
+)
+
+(deffakekeys
+  to-base (layer-switch base)
+)
+
+(defalias
+  tap (multi
+        (layer-switch nomods)
+        (on-idle-fakekey to-base tap 20)
+      )
+  m m                                                  ;; M key - no modifier (keep as regular key)
+  
+  a (tap-hold-release-keys $tap-time $hold-pinky  (multi a @tap) lmet $left-hand-keys)
+  r (tap-hold-release-keys $tap-time $hold-ring   (multi r @tap) lalt $left-hand-keys)
+  s (tap-hold-release-keys $tap-time $hold-middle (multi s @tap) lctl $left-hand-keys)
+  t (tap-hold-release-keys $tap-time $hold-index  (multi t @tap) lsft $left-hand-keys)
+
+  n (tap-hold-release-keys $tap-time $hold-index  (multi n @tap) rsft $right-hand-keys)
+  e (tap-hold-release-keys $tap-time $hold-middle (multi e @tap) rctl $right-hand-keys)
+  i (tap-hold-release-keys $tap-time $hold-ring   (multi i @tap) ralt $right-hand-keys)
+  o (tap-hold-release-keys $tap-time $hold-pinky  (multi o @tap) rmet $right-hand-keys)
+  
+  ;; H key remains regular key - no modifier conflict
+  h h                                                  ;; H key - no modifier
+  
+  ;; Layer switching keys between Arabic and English
+	;; Pure layer toggle. Does NOT send Shift to the OS.
+	asft-toggle (layer-toggle arabic-shift)
+  
+	  ;; --- TO ARABIC ---
+	  ;; Switch to Arabic (Saudi Arabia)
+	 go-ara (multi 
+    (layer-switch arabic) 
+    (cmd "cmd" "/c" "set_ara.bat")
+  )
+
+  go-base (multi 
+    (layer-switch base) 
+    (cmd "cmd" "/c" "set_eng.bat")
+  )
+
+;; ======== Arabic home row mods =======
+	  ;; Double-tap Caps Lock from Base -> Arabic
+	  nav (tap-dance 200 ((tap-hold 200 200 esc (layer-toggle extend)) @go-ara))
+
+	  ;; Double-tap Caps Lock from Arabic -> Base
+	  ara-exit (tap-dance 200 ((tap-hold 200 200 esc (layer-toggle extend)) @go-base))
+	  
+	  ;; Arabic letters that are on shift layer and need a macro
+	  ;; Macros to force-release shift, tap the key, then re-engage shift
+	  ;; The '5' is a 5ms delay to ensure the OS registers the release.
+	  ;; When shifted, these will "force" a plain keypress to the OS
+	  u_ara (fork u u (lsft rsft))
+	  p_ara (fork p p (lsft rsft))
+	  z_ara (fork z z (lsft rsft))
+	  w_ara (fork w w (lsft rsft))
+	  m_ara (fork m m (lsft rsft))
+	  x_ara (fork x x (lsft rsft))
+	  c_ara (fork c c (lsft rsft))
+	  q_ara (fork q q (lsft rsft))
+	  o_ara (fork o o (lsft rsft))
+	  
+	  
+	  
+  
+  
+  
+  fun (layer-toggle fun)                ;; Function layer
+  
+  ;; Enhanced space key - unified number + symbol layer
+  spc (tap-hold 200 200 spc (layer-toggle numsym))  ;; Space / Number + Symbol layer
+  
+  ;; One-shot modifiers (alternative for users who struggle with tap-hold)
+  oscmd (one-shot 2000 lmet)     ;; One-shot Cmd (2 second timeout)
+  osalt (one-shot 2000 lalt)     ;; One-shot Alt
+  osctl (one-shot 2000 lctl)     ;; One-shot Ctrl  
+  ossft (one-shot 2000 lsft)     ;; One-shot Shift
+  
+  ;; Extend layer shortcuts and layer switching
+  lq   (layer-switch base)        ;; Switch to base layer
+  lh   (layer-switch base)        ;; Switch back to base layer
+  lm   (layer-switch base)        ;; Switch to main layer (base)
+  bk   A-lft                      ;; Browser back
+  fnd  C-f                        ;; Find (Cmd+F on macOS)
+  fw   A-rght                     ;; Browser forward
+  cut  C-x                        ;; Cut
+  cpy  C-c                        ;; Copy
+  pst  C-v                        ;; Paste
+  udo  C-z                        ;; Undo
+)
