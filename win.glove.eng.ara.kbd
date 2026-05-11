@@ -16,17 +16,14 @@
 (defalias
   ;; Layer toggle for Arabic Shift
   ara-sh (layer-toggle arabic-shift)
-  
-  ;; Transition to Arabic: Switches layer and runs the batch file 
+
   go-ara (multi 
     (layer-switch arabic) 
-    (cmd "cmd" "/c" "set_ara.bat")
+    (cmd "python" "layout_bridge.py" "arabic") ;; Calls our universal bridge
   )
-
-  ;; Transition to Base: Switches layer and runs the batch file 
   go-base (multi 
     (layer-switch base) 
-    (cmd "cmd" "/c" "set_eng.bat")
+    (cmd "python" "layout_bridge.py" "base")
   )
 )
 
