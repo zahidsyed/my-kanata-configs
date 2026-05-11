@@ -8,6 +8,11 @@ Ensure layout 0 is English, 1 is Arabic
 ## Windows instructions
 1. kanata_windows_tty_winIOv2_cmd_allowed_x64.exe > place in same folder as run_kanata.ps1
 2. Regular powershell terminal > .\run_kanata.ps1
+3. Create shortcut with 
+	a. Target > `powershell.exe -WindowStyle -ExecutionPolicy Bypass -File "C:\Users\szahi\Documents\my-kanata-configs\run_kanata.ps1"`. 
+	b. Start in > `C:\Users\szahi\Documents\my-kanata-configs`
+4. Set Windows Terminal > Settings > Powershell > Advanced > Profile termination behavior > "Never close automatically" (to diagnose issues)
+5. Place shortcut on desktop and run with Command Palette
 		
 ## Component and Role
 my_layout.kbd	The "Brain": Handles the Colemak-DH logic and BHRM.
