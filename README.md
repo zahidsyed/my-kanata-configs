@@ -18,7 +18,8 @@ std
 Ensure layout 0 is English, 1 is Arabic
 
 # Windows instructions
-Use the kanata_windows_tty_winIOv2_cmd_allowed_x64.exe
+1. kanata_windows_tty_winIOv2_cmd_allowed_x64.exe > place in same folder as run_kanata.ps1
+2. Regular powershell terminal > .\run_kanata.ps1
 		
 # Component and Role
 my_layout.kbd	The "Brain": Handles the Colemak-DH logic and BHRM.
