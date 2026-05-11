@@ -1,0 +1,63 @@
+(defcfg
+  process-unmapped-keys yes
+  danger-enable-cmd yes
+)
+
+(defsrc
+  1    2    3    4    5              6    7    8    9    0    -
+  q    w    f    p    b              j    l    u    y    '    \
+  a    r    s    t    g              m    n    e    i    o    ;
+  z    x    c    d    v              k    h    ,    .    /    
+  rsft
+  lsft
+  f20
+)
+
+(defalias
+  ;; Layer toggle for Arabic Shift
+  ara-sh (layer-toggle arabic-shift)
+  
+  ;; Transition to Arabic: Switches layer and runs the batch file 
+  go-ara (multi 
+    (layer-switch arabic) 
+    (cmd "cmd" "/c" "set_ara.bat")
+  )
+
+  ;; Transition to Base: Switches layer and runs the batch file 
+  go-base (multi 
+    (layer-switch base) 
+    (cmd "cmd" "/c" "set_eng.bat")
+  )
+)
+
+(deflayer base
+  _    _    _    _    _              _    _    _    _    _    _
+  _    _    _    _    _              _    _    _    _    _    _
+  _    _    _    _    _              _    _    _    _    _    _
+  _    _    _    _    _              _    _    _    _    _    
+  _
+  _
+  @go-ara
+)
+
+;; Arabic Main Layer
+(deflayer arabic
+  1    2    3    4    5              6    7    8    9    0    -
+  r    S-q  t    n    f              [    g    u    d    S-m  \  
+  h    v    s    j    y              l    k    S-a  S-y  ,    S-p
+  .    a    e    ]    S-s            ;    i    S-k  S-.  S-l  
+  @ara-sh 
+  @ara-sh 
+  @go-base
+)
+
+;; Arabic Shift Layer
+(deflayer arabic-shift
+  S-1  S-2  S-3  S-4  S-5            S-6  S-7  S-8  S-9  S-0  S-=
+  _    S-w  S-x  _    _              _    _    S-r  z    '    S--
+  S-h  '    w    m    _              x    u    S-s  S-n  c    S-;
+  /    S-grv grv q    _              _    p    _    _    S-[  
+  _  
+  _  
+  _
+)
